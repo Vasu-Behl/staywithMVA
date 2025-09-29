@@ -1,28 +1,42 @@
 import React, { useState, useEffect } from "react";
 import {
   Star,
-  MapPin,
   Train,
   ShoppingBag,
   Car,
-  Clock,
   Users,
-  Shield,
-  Eye,
-  DollarSign,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Helper: build a URL from the /public folder (works in dev AND on GitHub Pages)
 const withBase = (p) => `${import.meta.env.BASE_URL}${p.replace(/^\//, "")}`;
 
-const Home = () => {
-  // ----- Hero image rotation (from /public) -----
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const heroImages = ["/bedroom.jpg", "/livingroom.jpg"]; // absolute from /public
+// Reusable grid wrapper (use wherever you want the grid behind the content)
+const GridBackground = ({ children }) => (
+  <div className="relative">
+    <div
+      className="pointer-events-none absolute inset-0"
+      style={{
+        // SAME grid for every place we use it
+        backgroundImage: `
+          linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)
+        `,
+        backgroundSize: "60px 60px",
+      }}
+    />
+    <div className="relative z-10">{children}</div>
+  </div>
+);
 
-  // ----- Party images carousel (from /public) -----
+const Home = () => {
+  // ----- Hero image rotation -----
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const heroImages = [withBase("bedroom.jpg"), withBase("livingroom.jpg")];
+
+  // ----- Party images carousel -----
   const [currentPartyIndex, setCurrentPartyIndex] = useState(0);
   const partyImages = [
     withBase("images1.png"),
@@ -96,7 +110,9 @@ const Home = () => {
   const nextPartyImage = () =>
     setCurrentPartyIndex((p) => (p + 1) % partyImages.length);
   const prevPartyImage = () =>
-    setCurrentPartyIndex((p) => (p - 1 + partyImages.length) % partyImages.length);
+    setCurrentPartyIndex(
+      (p) => (p - 1 + partyImages.length) % partyImages.length
+    );
 
   const nextReview = () =>
     setCurrentReviewIndex((p) => (p + 1) % reviews.length);
@@ -139,7 +155,6 @@ const Home = () => {
   );
 
   const [openFAQ, setOpenFAQ] = useState(null);
-
   const faqData = [
     {
       question: "Is boys PG available?",
@@ -191,7 +206,6 @@ const Home = () => {
             <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 font-inter tracking-tight">
               MVA Rooms & PGs
             </h1>
-
             <div className="flex items-center justify-center gap-2 mb-8">
               <div className="flex items-center gap-1">
                 <Star className="w-6 h-6 fill-yellow-400 text-yellow-400" />
@@ -203,13 +217,59 @@ const Home = () => {
               <span className="text-2xl font-bold text-white">4.7</span>
               <span className="text-lg text-gray-200">Google Rating</span>
             </div>
-
-            <button className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            <Link
+              to="/contact"
+              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
               Contact Us
-            </button>
+            </Link>
           </div>
         </div>
       </div>
+
+      {/* ===== Choose Your Stay (purple, bigger, correct images) ===== */}
+      <section className="py-16 px-4 max-w-7xl mx-auto">
+        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 font-inter">
+          Choose Your Stay
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          {/* Rooms for Co-living */}
+          <div className="bg-purple-600 text-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+            <img
+              src={withBase("smallrooms.jpg")}
+              alt="Rooms for Co-living"
+              className="w-full h-72 object-cover"
+            />
+            <div className="p-8 text-center">
+              <h3 className="text-2xl font-bold mb-4">Rooms for Co-living</h3>
+              <Link
+                to="/rooms"
+                className="bg-white text-purple-700 px-6 py-3 rounded-full text-lg font-medium shadow hover:bg-purple-100 transition"
+              >
+                Explore Rooms
+              </Link>
+            </div>
+          </div>
+
+          {/* PG for Girls */}
+          <div className="bg-purple-600 text-white rounded-3xl shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+            <img
+              src={withBase("smallpg.jpg")}
+              alt="PG for Girls"
+              className="w-full h-72 object-cover"
+            />
+            <div className="p-8 text-center">
+              <h3 className="text-2xl font-bold mb-4">PG for Girls</h3>
+              <Link
+                to="/pg"
+                className="bg-white text-purple-700 px-6 py-3 rounded-full text-lg font-medium shadow hover:bg-purple-100 transition"
+              >
+                Explore PG
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ===== Accessibility Section ===== */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
@@ -287,12 +347,6 @@ const Home = () => {
                       src={image}
                       alt={`Event ${index + 1}`}
                       className="w-full h-full object-cover"
-                      onError={() =>
-                        console.log(`Failed to load party image: ${image}`)
-                      }
-                      onLoad={() =>
-                        console.log(`Successfully loaded party image: ${image}`)
-                      }
                     />
                   </div>
                 ))}
@@ -336,7 +390,7 @@ const Home = () => {
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 font-inter">
             What Our Customers Say
           </h2>
-          <div className="relative">
+        <div className="relative">
             <div className="bg-white rounded-2xl shadow-xl p-8 min-h-[200px]">
               <div className="text-center">
                 <StarRating rating={reviews[currentReviewIndex].rating} />
@@ -380,37 +434,44 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ===== FAQ Section ===== */}
-      <section className="py-16 px-4 bg-gradient-to-r from-purple-50 to-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 font-inter">
-            Frequently Asked Questions
-          </h2>
-        <div className="space-y-4">
-            {faqData.map((faq, index) => (
-              <FAQItem
-                key={index}
-                question={faq.question}
-                answer={faq.answer}
-                isOpen={openFAQ === index}
-                onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
-              />
-            ))}
+      {/* ===== FAQ Section (WITH CONSISTENT GRID) ===== */}
+      <GridBackground>
+        <section className="py-16 px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 font-inter">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-4">
+              {faqData.map((faq, index) => (
+                <FAQItem
+                  key={index}
+                  question={faq.question}
+                  answer={faq.answer}
+                  isOpen={openFAQ === index}
+                  onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </GridBackground>
 
-      {/* ===== Final Contact Section ===== */}
-      <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8 text-gray-800 font-inter">
-            Ready to Make MVA Your Home?
-          </h2>
-          <button className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-12 py-4 rounded-full text-xl font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-            Contact Us Now
-          </button>
-        </div>
-      </section>
+      {/* ===== Final Contact Section (WITH CONSISTENT GRID) ===== */}
+      <GridBackground>
+        <section className="py-16 px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-8 text-gray-800 font-inter">
+              Ready to Make MVA Your Home?
+            </h2>
+            <Link
+              to="/contact"
+              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-12 py-4 rounded-full text-xl font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              Contact Us Now
+            </Link>
+          </div>
+        </section>
+      </GridBackground>
     </div>
   );
 };
