@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 // Helper: build a URL from the /public folder (works in dev AND on GitHub Pages)
-const withBase = (p) => `${import.meta.env.BASE_URL}${p.replace(/^\//, "")}`;
+const withBase = (p) => `/${p.replace(/^\//, "")}`;
 
 const MapEmbed = () => (
   <div className="w-full h-[420px]">

@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 
 // Helper: build a URL from the /public folder (works in dev AND on GitHub Pages)
-const withBase = (p) => `${import.meta.env.BASE_URL}${p.replace(/^\//, "")}`;
+const withBase = (p) => `/${p.replace(/^\//, "")}`;
 
 // Reusable grid wrapper (use wherever you want the grid behind the content)
 const GridBackground = ({ children }) => (
