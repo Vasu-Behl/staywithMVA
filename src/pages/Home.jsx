@@ -19,7 +19,6 @@ const GridBackground = ({ children }) => (
     <div
       className="pointer-events-none absolute inset-0"
       style={{
-        // SAME grid for every place we use it
         backgroundImage: `
           linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
           linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px)
@@ -39,11 +38,11 @@ const Home = () => {
   // ----- Party images carousel -----
   const [currentPartyIndex, setCurrentPartyIndex] = useState(0);
   const partyImages = [
-    withBase("images1.png"),
-    withBase("images2.png"),
-    withBase("images3.png"),
-    withBase("images4.png"),
-    withBase("images5.png"),
+    withBase("images1.jpeg"),
+    withBase("images2.jpeg"),
+    withBase("images3.jpeg"),
+    withBase("images4.jpeg"),
+    withBase("images5.jpeg"),
   ];
 
   // ----- Reviews carousel -----
@@ -227,7 +226,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* ===== Choose Your Stay (purple, bigger, correct images) ===== */}
+      {/* ===== Choose Your Stay ===== */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 font-inter">
           Choose Your Stay
@@ -327,15 +326,15 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ===== Parties Section ===== */}
+      {/* ===== Parties Section (with blurred background) ===== */}
       <section className="py-16 px-4 bg-gradient-to-r from-purple-50 to-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 font-inter">
             Life at MVA - Events & Celebrations
           </h2>
           <div className="relative">
-            <div className="overflow-hidden rounded-2xl shadow-2xl">
-              <div className="relative h-96">
+            <div className="overflow-hidden rounded-2xl shadow-2xl bg-white">
+              <div className="relative h-[420px] md:h-[500px]">
                 {partyImages.map((image, index) => (
                   <div
                     key={index}
@@ -343,11 +342,23 @@ const Home = () => {
                       index === currentPartyIndex ? "opacity-100" : "opacity-0"
                     }`}
                   >
-                    <img
-                      src={image}
-                      alt={`Event ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
+                    {/* Blurred background fill */}
+                    <div className="absolute inset-0 overflow-hidden">
+                      <img
+                        src={image}
+                        alt=""
+                        className="w-full h-full object-cover scale-110 blur-md opacity-70"
+                      />
+                    </div>
+
+                    {/* Main crisp image on top */}
+                    <div className="relative flex items-center justify-center h-full">
+                      <img
+                        src={image}
+                        alt={`Event ${index + 1}`}
+                        className="max-h-[90%] max-w-[90%] object-contain rounded-2xl shadow-xl"
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -390,7 +401,7 @@ const Home = () => {
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 font-inter">
             What Our Customers Say
           </h2>
-        <div className="relative">
+          <div className="relative">
             <div className="bg-white rounded-2xl shadow-xl p-8 min-h-[200px]">
               <div className="text-center">
                 <StarRating rating={reviews[currentReviewIndex].rating} />

@@ -8,13 +8,13 @@ export default function Contactus() {
         </p>
         <div className="flex flex-col gap-4">
           <a
-            href="tel:+919999999999"
+            href="tel:+91 9810111617"
             className="px-6 py-3 rounded-full bg-purple-600 text-white font-medium hover:bg-purple-700 transition"
           >
-            Call: +91 99999 99999
+            Call: +91 9810118759
           </a>
           <a
-            href="https://wa.me/919999999999"
+            href="https://wa.me/91 9810111617"
             target="_blank"
             rel="noreferrer"
             className="px-6 py-3 rounded-full bg-emerald-600 text-white font-medium hover:bg-emerald-700 transition"
@@ -22,10 +22,10 @@ export default function Contactus() {
             WhatsApp
           </a>
           <a
-            href="mailto:hello@mvarooms.com"
+            href="mailto:mvarooms@gmail.com"
             className="px-6 py-3 rounded-full bg-purple-100 text-purple-700 font-medium hover:bg-purple-200 transition"
           >
-            Email: hello@mvarooms.com
+            Email: mvarooms@gmail.com
           </a>
         </div>
       </div>
