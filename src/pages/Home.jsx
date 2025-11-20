@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import MapEmbed from "../MapEmbed";
 import {
   Star,
   Train,
@@ -466,6 +467,22 @@ const Home = () => {
           </div>
         </section>
       </GridBackground>
+      
+{/* ===== Location / Map Section ===== */}
+<section className="py-16 px-4 bg-gradient-to-r from-purple-50 to-white">
+  <div className="max-w-6xl mx-auto">
+    <h2 className="text-4xl font-bold text-center mb-8 text-gray-800 font-inter">
+      Find Us Easily
+    </h2>
+    <p className="text-center text-gray-600 mb-8 font-arial">
+      Located near North Campus with easy access to metro and markets.
+    </p>
+
+    <div className="rounded-3xl overflow-hidden shadow-2xl border border-purple-100">
+      <MapEmbed />   {/* ⬅️ Your map is now placed nicely */}
+    </div>
+  </div>
+</section>
 
       {/* ===== Final Contact Section (WITH CONSISTENT GRID) ===== */}
       <GridBackground>
