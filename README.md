@@ -1,16 +1,37 @@
-# React + Vite
+# StayWithMVA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A cinematic, motion-led landing page for StayWithMVA rooms, PGs and co-living
+spaces near North Campus, Delhi.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+Create a production build with:
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run build
+npm run preview
+```
 
-## Expanding the ESLint configuration
+## Content
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Contact details, pricing, amenities, stays, testimonials and FAQ copy:
+  `src/data/content.js`
+- Real StayWithMVA property and resident photos: `public/images/`
+- Global visual system and responsive styling: `src/index.css`
+- Section components: `src/components/`
+- Scroll, entrance and magnetic motion setup: `src/App.jsx`
+
+## Quality checks
+
+```bash
+npm run lint
+npm run build
+```
+
+Motion automatically simplifies for touch layouts and disables for users who
+prefer reduced motion.
